@@ -1,0 +1,15 @@
+# Directories
+/.git export-ignore
+/.github export-ignore
+/.idea export-ignore
+/.wordpress-org export-ignore
+/bin export-ignore
+/node_modules export-ignore
+/tests export-ignore
+
+# Files
+/.gitattributes export-ignore
+/composer.json export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/phpunit.xml export-ignore
