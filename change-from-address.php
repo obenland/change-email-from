@@ -38,7 +38,7 @@ function cefko_register_settings() {
 
 	add_settings_section(
 		'cefko_email_from_settings_section',
-		__( 'Site Email From Address', 'change-from-address' ),
+		'<span id="email-from-address">' . __( 'Site Email From Address', 'change-from-address' ) . '</span>',
 		'__return_false',
 		'general'
 	);
@@ -108,7 +108,7 @@ function cefko_from_email_address_field_callback() {
 function cefko_mail_from_action_links( array $links ): array {
 	$links[] = sprintf(
 		'<a href="%1$s">%2$s</a>',
-		esc_url( admin_url( 'options-general.php' ) ),
+		esc_url( admin_url( 'options-general.php#email-from-address' ) ),
 		esc_html__( 'Settings', 'change-from-address' )
 	);
 
