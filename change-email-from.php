@@ -12,13 +12,17 @@
  * @package change-email-from
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Plugin settings page.
  */
-function cef_register_settings() {
+function cefko_register_settings() {
 	register_setting(
 		'general',
-		'cef_email_from_name',
+		'cefko_email_from_name',
 		array(
 			'sanitize_callback' => 'sanitize_text_field',
 		)
@@ -26,57 +30,57 @@ function cef_register_settings() {
 
 	register_setting(
 		'general',
-		'cef_email_from_address',
+		'cefko_email_from_address',
 		array(
 			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
 
 	add_settings_section(
-		'cef_email_from_settings_section',
+		'cefko_email_from_settings_section',
 		__( 'Site Email From Address', 'change-email-from' ),
 		'__return_false',
 		'general'
 	);
 
 	add_settings_field(
-		'cef_email_from_name',
+		'cefko_email_from_name',
 		__( 'From Name', 'change-email-from' ),
-		'cef_from_name_field_callback',
+		'cefko_from_name_field_callback',
 		'general',
-		'cef_email_from_settings_section',
+		'cefko_email_from_settings_section',
 		array(
-			'label_for' => 'cef_email_from_name',
+			'label_for' => 'cefko_email_from_name',
 		)
 	);
 
 	add_settings_field(
-		'cef_from_email_address',
+		'cefko_from_email_address',
 		__( 'From Email Address', 'change-email-from' ),
-		'cef_from_email_address_field_callback',
+		'cefko_from_email_address_field_callback',
 		'general',
-		'cef_email_from_settings_section',
+		'cefko_email_from_settings_section',
 		array(
-			'label_for' => 'cef_from_email_address',
+			'label_for' => 'cefko_from_email_address',
 		)
 	);
 }
-add_action( 'admin_init', 'cef_register_settings' );
+add_action( 'admin_init', 'cefko_register_settings' );
 
 /**
  * From Name field content.
  */
-function cef_from_name_field_callback() {
+function cefko_from_name_field_callback() {
 	printf(
-		'<input name="cef_email_from_name" type="text" class="regular-text" value="%s" />',
-		esc_attr( get_option( 'cef_email_from_name' ) )
+		'<input name="cefko_email_from_name" type="text" class="regular-text" value="%s" />',
+		esc_attr( get_option( 'cefko_email_from_name' ) )
 	);
 }
 
 /**
  * From Email field content.
  */
-function cef_from_email_address_field_callback() {
+function cefko_from_email_address_field_callback() {
 	$site_name  = wp_parse_url( network_home_url(), PHP_URL_HOST );
 	$from_email = 'wordpress@';
 
@@ -89,8 +93,8 @@ function cef_from_email_address_field_callback() {
 	}
 
 	printf(
-		'<input name="cef_from_email_address" type="email" class="regular-text" value="%1$s" placeholder="%2$s" />',
-		esc_attr( get_option( 'cef_email_from_address' ) ),
+		'<input name="cefko_from_email_address" type="email" class="regular-text" value="%1$s" placeholder="%2$s" />',
+		esc_attr( get_option( 'cefko_email_from_address' ) ),
 		esc_attr( $from_email )
 	);
 }
@@ -101,7 +105,7 @@ function cef_from_email_address_field_callback() {
  * @param array $links An array of plugin action links.
  * @return array
  */
-function cef_mail_from_action_links( array $links ): array {
+function cefko_mail_from_action_links( array $links ): array {
 	$links[] = sprintf(
 		'<a href="%1$s">%2$s</a>',
 		esc_url( admin_url( 'options-general.php' ) ),
@@ -110,7 +114,7 @@ function cef_mail_from_action_links( array $links ): array {
 
 	return $links;
 }
-add_filter( 'plugin_action_links_change-email-from/change-email-from.php', 'cef_mail_from_action_links' );
+add_filter( 'plugin_action_links_change-email-from/change-email-from.php', 'cefko_mail_from_action_links' );
 
 /**
  * Returns chosen from address.
@@ -118,8 +122,8 @@ add_filter( 'plugin_action_links_change-email-from/change-email-from.php', 'cef_
  * @param string $from_email Email address to send from.
  * @return string
  */
-function cef_mail_from_address( string $from_email ): string {
-	$from_address = get_option( 'cef_email_from_address' );
+function cefko_mail_from_address( string $from_email ): string {
+	$from_address = get_option( 'cefko_email_from_address' );
 
 	if ( ! empty( $from_address ) ) {
 		$from_email = $from_address;
@@ -127,7 +131,7 @@ function cef_mail_from_address( string $from_email ): string {
 
 	return $from_email;
 }
-add_filter( 'wp_mail_from', 'cef_mail_from_address' );
+add_filter( 'wp_mail_from', 'cefko_mail_from_address' );
 
 /**
  * Returns chosen from name.
@@ -135,8 +139,8 @@ add_filter( 'wp_mail_from', 'cef_mail_from_address' );
  * @param string $from_name Name associated with the "from" email address.
  * @return string
  */
-function cef_mail_from_name( string $from_name ): string {
-	$name = get_option( 'cef_email_from_name' );
+function cefko_mail_from_name( string $from_name ): string {
+	$name = get_option( 'cefko_email_from_name' );
 
 	if ( ! empty( $name ) ) {
 		$from_name = $name;
@@ -144,4 +148,4 @@ function cef_mail_from_name( string $from_name ): string {
 
 	return $from_name;
 }
-add_filter( 'wp_mail_from_name', 'cef_mail_from_name' );
+add_filter( 'wp_mail_from_name', 'cefko_mail_from_name' );
