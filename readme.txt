@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Change Email From ===
 Contributors: obenland
 Tags: email, sender, branding, communication, identity
 Requires at least: 4.3
