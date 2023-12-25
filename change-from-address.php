@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: Change Email From
- * Plugin URI: https://wordpress.org/plugins/change-email-from/
+ * Plugin Name: Change From Address
+ * Plugin URI: https://wordpress.org/plugins/change-from-address/
  * Description: Allows you to change the default email address and sender name for emails sent by WordPress.
- * Version: 1
+ * Version: 2
  * Author: obenland
  * Author URI: https://konstantin.obenland.it
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
- * @package change-email-from
+ * @package change-from-address
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,14 +38,14 @@ function cefko_register_settings() {
 
 	add_settings_section(
 		'cefko_email_from_settings_section',
-		__( 'Site Email From Address', 'change-email-from' ),
+		'<span id="email-from-address">' . __( 'Site Email From Address', 'change-from-address' ) . '</span>',
 		'__return_false',
 		'general'
 	);
 
 	add_settings_field(
 		'cefko_email_from_name',
-		__( 'From Name', 'change-email-from' ),
+		__( 'From Name', 'change-from-address' ),
 		'cefko_from_name_field_callback',
 		'general',
 		'cefko_email_from_settings_section',
@@ -56,7 +56,7 @@ function cefko_register_settings() {
 
 	add_settings_field(
 		'cefko_from_email_address',
-		__( 'From Email Address', 'change-email-from' ),
+		__( 'From Email Address', 'change-from-address' ),
 		'cefko_from_email_address_field_callback',
 		'general',
 		'cefko_email_from_settings_section',
@@ -108,13 +108,13 @@ function cefko_from_email_address_field_callback() {
 function cefko_mail_from_action_links( array $links ): array {
 	$links[] = sprintf(
 		'<a href="%1$s">%2$s</a>',
-		esc_url( admin_url( 'options-general.php' ) ),
-		esc_html__( 'Settings', 'change-email-from' )
+		esc_url( admin_url( 'options-general.php#email-from-address' ) ),
+		esc_html__( 'Settings', 'change-from-address' )
 	);
 
 	return $links;
 }
-add_filter( 'plugin_action_links_change-email-from/change-email-from.php', 'cefko_mail_from_action_links' );
+add_filter( 'plugin_action_links_change-from-address/change-from-address.php', 'cefko_mail_from_action_links' );
 
 /**
  * Returns chosen from address.
