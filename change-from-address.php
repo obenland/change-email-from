@@ -3,7 +3,7 @@
  * Plugin Name: Change From Address
  * Plugin URI: https://wordpress.org/plugins/change-from-address/
  * Description: Allows you to change the default email address and sender name for emails sent by WordPress.
- * Version: 2
+ * Version: 3
  * Author: obenland
  * Author URI: https://konstantin.obenland.it
  * License: GPLv2 or later
@@ -15,6 +15,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * Load translations.
+ */
+function cefko_load_textdomain() {
+	load_plugin_textdomain( 'change-from-address' );
+}
+add_action( 'init', 'cefko_load_textdomain' );
 
 /**
  * Plugin settings page.
