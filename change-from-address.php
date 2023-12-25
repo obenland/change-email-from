@@ -17,6 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Load translations.
+ */
+function cefko_load_textdomain() {
+	load_plugin_textdomain( 'change-from-address' );
+}
+add_action( 'init', 'cefko_load_textdomain' );
+
+/**
  * Plugin settings page.
  */
 function cefko_register_settings() {
